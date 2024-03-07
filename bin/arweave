@@ -2,7 +2,7 @@
 -- Busted command-line runner using the marton output handler
 
 local cli = require "cliargs"
-local mod = require "src.mod"
+local mod = require "arweave"
 
 -- Called when the flag -v or --version is set.
 -- 

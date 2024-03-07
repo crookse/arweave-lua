@@ -17,14 +17,14 @@ description = {
 dependencies = {
    "lua >= 5.1",
    "busted ~> 2",
-   "cliargs ~> 3"
+   "lua_cliargs ~> 3.0"
 }
 
 build = {
    type = "builtin",
 
    modules = {
-      ["arweave"] = "src/mod.lua"
+      ["arweave"] = "src/arweave.lua",
       ["arweave.testing.output_handlers.marton"] = "src/testing/output_handlers/marton.lua"
    },
 
