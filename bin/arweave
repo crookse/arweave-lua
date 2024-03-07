@@ -1,0 +1,129 @@
+#!/usr/bin/env lua
+-- Busted command-line runner using the marton output handler
+
+local cli = require "cliargs"
+local mod = require "src.mod"
+
+-- Called when the flag -v or --version is set.
+-- 
+local function print_version()
+  local busted = require "busted.core"()
+  print("arweave: version " .. mod.version)
+  print("busted:  version " .. busted.version)
+  os.exit(0)
+end
+
+local function checkArgs(args, err)
+
+  if #arg > 1 then
+    return
+  end
+
+  if not args then
+    if err then
+      io.stderr:write(err .. "\n\n")
+      os.exit(1)
+    end
+  end
+end
+
+cli:set_name("arweave")
+
+cli:splat('COMMAND', 'One of the commands')
+
+cli:command("help", "Show this help menu")
+cli:command("fmt", "Run the code formatter (uses LuaFormatter)")
+cli:command("test", "Run tests (uses busted)")
+
+-- A flag with both the short-key and --expanded-key notations, and callback function
+cli:flag("-v, --version", "Show this program's version and dependency versions", print_version)
+cli:flag("-h, --help", "Show this help menu", print_help)
+
+local args, err = cli:parse(arg)
+
+checkArgs(args, err)
+
+local subcommand = arg[1]
+
+-- Remove the subcommand because it is not needed further in the program
+table.remove(arg, 1)
+
+if subcommand == "help" then
+  cli:print_help()
+  os.exit(0)
+end
+
+if subcommand == "test" then
+  require "busted.runner"({
+    standalone = false,
+    output = "src.testing.output_handlers.marton"
+  })
+  os.exit(0)
+end
+
+-- Default configurations:
+--
+-- column_limit: 80
+-- indent_width: 4
+-- use_tab: false
+-- tab_width: 4
+-- continuation_indent_width: 4
+-- spaces_before_call: 1
+-- keep_simple_control_block_one_line: true
+-- keep_simple_function_one_line: true
+-- align_args: true
+-- break_after_functioncall_lp: false
+-- break_before_functioncall_rp: false
+-- spaces_inside_functioncall_parens: false
+-- spaces_inside_functiondef_parens: false
+-- align_parameter: true
+-- chop_down_parameter: false
+-- break_after_functiondef_lp: false
+-- break_before_functiondef_rp: false
+-- align_table_field: true
+-- break_after_table_lb: true
+-- break_before_table_rb: true
+-- chop_down_table: false
+-- chop_down_kv_table: true
+-- table_sep: ","
+-- column_table_limit: 0
+-- extra_sep_at_table_end: false
+-- spaces_inside_table_braces: false
+-- break_after_operator: true
+-- double_quote_to_single_quote: false
+-- single_quote_to_double_quote: false
+-- spaces_around_equals_in_field: true
+-- line_breaks_after_function_body: 1
+-- line_separator: input
+--
+if subcommand == "fmt" then
+
+  if #arg == 0 then
+    cli:print_help()
+    os.exit(0)
+  end
+
+  local configs = {
+    "--break-after-functioncall-lp",
+    "--break-after-table-lb",
+    "--break-before-functioncall-rp",
+    "--break-before-table-rb",
+    "--chop-down-kv-table",
+    "--chop-down-table",
+    "--continuation-indent-width=2",
+    "--indent-width=2",
+    "--no-break-after-operator",
+    "--no-keep-simple-control-block-one-line",
+    "--no-keep-simple-function-one-line",
+    "--no-use-tab",
+    "--single-quote-to-double-quote",
+    "--column-table-limit=20",
+  }
+
+  local configs = table.concat(configs, " ")
+  local fmtArgs = table.concat(arg, " ")
+  os.execute("arweave-fmt -i " .. configs .. " " .. fmtArgs)
+  os.exit(0)
+end
+
+cli:print_help()
