@@ -33,7 +33,7 @@ arweave -h
 
 The `fmt` command uses [LuaFormatter](https://github.com/Koihik/LuaFormatter) to format code. It calls the LuaFormatter binary under the hood via `os.execute()`. This means you can pass in any LuaFormatter CLI args/options to the `fmt` command and LuaFormatter would handle it like it normally would.
 
-```bash
+```
 arweave fmt [args/options]
 ```
 
@@ -41,7 +41,7 @@ arweave fmt [args/options]
 
 The `test` command uses [busted](https://lunarmodules.github.io/busted/) to run tests. It calls busted's test runner under the hood. This means you can pass in any `busted` CLI args/options to the `test` command and busted would handle it like it normally would.
 
-```bash
+```
 arweave test [args/options] [directory]
 ```
 
@@ -57,13 +57,13 @@ __Things to Note__
 
 1. Run the code fomatter against a file.
 
-    ```bash
+    ```
     arweave fmt path/to/file.lua
     ```
 
 1. Run the code formatter against a directory.
 
-    ```bash
+    ```
     arweave fmt /path/to/files/**/*
     ```
 
@@ -75,10 +75,6 @@ __Things to Note__
 
     ```lua
     -- File: path/to/your_test_spec.lua
-
-    -- The `arweave` module depends on the `busted` framework, so you can
-    -- `require "busted"` like you would if you installed `busted` separately.
-    require "busted"
 
     describe(
       "Suite 1",
@@ -106,6 +102,8 @@ __Things to Note__
 
 1. Run your test.
 
-    ```bash
+    ```
     arweave test .
     ```
+
+    _Note: The `.` above tells the `arweave test` command to find and run tests in the current working directory._
