@@ -56,6 +56,10 @@ local statusIconMap = {
 
 ---Handle test output
 return function(options)
+  if not options then
+    options = {}
+  end
+
   local busted = require "busted"
   local handler = require "busted.outputHandlers.base"()
 
@@ -133,14 +137,20 @@ return function(options)
 
     -- Show failures before errors because errors need to be addressed first.
     -- See comment on errors below for more info.
-    for _, v in ipairs(handler.failures) do
-      showFailure(v)
+    for _, testFile in ipairs(handler.failures) do
+      showFailure(testFile)
     end
 
     -- Show errors last. Errored tests need to be seen and addressed before
     -- failed tests because errors mean there are errors in the test/code.
-    for _, v in ipairs(handler.errors) do
-      showError(v)
+    for _, testFile in ipairs(handler.errors) do
+      local tracked = tracker.__AllTestFileResults.test_files_failed[testFile.name]
+      if not tracked then
+        local currentCount = tracker.__AllTestFileResults.test_files_count
+        tracker.__AllTestFileResults.test_files_count = currentCount + 1
+        tracker.__AllTestFileResults.test_files_failed[testFile.name] = true
+      end
+      showError(testFile)
     end
 
     local totalSuites = tracker.__AllTestFileResults.test_files_count
@@ -295,6 +305,11 @@ return function(options)
     end
   end
 
+  handler.error = function(args, test)
+    io_write(args, test)
+    return args
+  end
+
   -- Initially set the test suite up
   handler.resetSuite()
 
@@ -312,7 +327,9 @@ return function(options)
     {
       "file",
       "start"
-    }, handler.onFileStart
+    }, handler.onFileStart, {
+      cancelOnPending = true
+    }
   )
   busted.subscribe(
     {"file", "end"}, handler.onFileEnd
