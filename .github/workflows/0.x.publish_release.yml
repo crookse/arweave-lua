@@ -100,4 +100,4 @@ jobs:
       #
       - name: Publish
         run: |
-          luarocks upload arweave-${{ github.event.release.tag_name }}.rockspec --api-key=${{ secrets.LUAROCKS_UPLOAD_API_KEY }}
+          luarocks upload rockspecs/arweave-${{ github.event.release.tag_name }}.rockspec --api-key=${{ secrets.LUAROCKS_UPLOAD_API_KEY }}
