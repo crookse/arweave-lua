@@ -59,6 +59,33 @@ __Things to Note__
   - find and run all tests in that directory; and
   - traverse each subdirectory in that directory to find and run more tests.
 
+## Modules
+
+### `arweave.hash`
+
+#### `arweave.hash.generateId(len)`
+
+Generate an ID of a given length. If no length is given, then the default length of 43 is used.
+
+```lua
+local hash = require "arweave.hash"
+
+
+--
+-- Generate a random ID with a default length of 43
+--
+local value = hash.generateId()
+print(value) -- Example output => t_o8ipoYVkk5z9B6Fn8EQtnMOvAvXh-FQ8WCP-7XZNn
+
+
+
+--
+-- Generate a random ID with a length of 20
+--
+local value = hash.generateId(20) -- 20 is passed in to tell it "Make the length 20"
+print(value) -- Example output => m-it0avrR-xdGOTCsnac
+```
+
 ## Tutorials
 
 ### Creating Type Assertions
