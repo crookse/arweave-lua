@@ -98,6 +98,16 @@ jobs:
       #
       #   luarocks upload arweave-0.0.1-5.rockspec --api-key=API_KEY
       #
+      # Notes:
+      #
+      # The dkjson library installation below is intentinoal. Without it, the
+      # following error occurs in the CI:
+      #
+      #   Error: A JSON library is required for this command. Failed loading
+      #   'cjson', 'dkjson', and 'json'. Use 'luarocks search <partial-name>' to
+      #   search for a library and 'luarocks install <name>' to install one.
+      #
       - name: Publish
         run: |
+          luarocks install dkjson
           luarocks upload rockspecs/arweave-${{ github.event.release.tag_name }}.rockspec --api-key=${{ secrets.LUAROCKS_UPLOAD_API_KEY }}
