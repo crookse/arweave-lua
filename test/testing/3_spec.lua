@@ -1,21 +1,25 @@
 require "busted"
 
+describe(
+  "bundled_2", function()
+    it(
+      "tests insulate block does not update environment", function()
+        assert.is_nil(package.loaded.mymodule) -- mymodule is not loaded
+        assert.is_nil(_G.myglobal) -- _G.myglobal is not set
+        assert.is_nil(myglobal)
+      end
+    )
 
-describe("bundled_2", function()
-  it("tests insulate block does not update environment", function()
-    assert.is_nil(package.loaded.mymodule)  -- mymodule is not loaded
-    assert.is_nil(_G.myglobal)  -- _G.myglobal is not set
-    assert.is_nil(myglobal)
-  end)
+    it(
+      "tests insulate block does not update environment #long", function()
+        assert.is_nil(package.loaded.mymodule) -- mymodule is not loaded
+        assert.is_nil(_G.myglobal) -- _G.myglobal is not set
+        assert.is_nil(myglobal)
+      end
+    )
 
-  it("tests insulate block does not update environment #long", function()
-    assert.is_nil(package.loaded.mymodule)  -- mymodule is not loaded
-    assert.is_nil(_G.myglobal)  -- _G.myglobal is not set
-    assert.is_nil(myglobal)
-  end)
-
-end)
-
+  end
+)
 
 -- local fakes = require "libs.testing_fakes"
 -- local json  = require "libs.json"
@@ -454,7 +458,7 @@ end)
 --       function ()
 --         local from = testing.generatePlaceholderID()
 --         local to = testing.generatePlaceholderID()
-        
+
 --         testing.set_globals({
 --           Name = "TestToken",
 --           Ticker = "A-Test",
@@ -465,7 +469,7 @@ end)
 --             [to] = 1
 --           },
 --         })
-        
+
 --         -- Set up global ao object
 --         ao = fakes.ao()
 --         Logger = ao
