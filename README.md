@@ -37,6 +37,14 @@ The `fmt` command uses [LuaFormatter](https://github.com/Koihik/LuaFormatter) to
 arweave fmt [args/options]
 ```
 
+#### `lint`
+
+The `lint` command uses [luacheck](https://github.com/lunarmodules/luacheck) to check the code. It calls the luacheck binary under the hood by requiring the luacheck module. This means you can pass in any luacheck args/options to the `lint` command and luacheck would handle it like it normally would.
+
+```bash
+arweave lint [args/options]
+```
+
 #### `test`
 
 The `test` command uses [busted](https://lunarmodules.github.io/busted/) to run tests. It calls busted's test runner under the hood. This means you can pass in any `busted` CLI args/options to the `test` command and busted would handle it like it normally would.
