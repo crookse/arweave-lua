@@ -77,6 +77,46 @@ local arweave = require "arweave"
 print(arweave.version) -- Example output => 0.0.1-6
 ```
 
+### `arweave.globals`
+
+#### `arweave.globals.set_globals()`
+
+Sets globals using a key-value pair object and overwrites any current globals.
+
+```lua
+local globals = require "arweave.globals"
+
+_G.Hello = "World" -- This will be overwritten
+print(_G.Hello) -- Outputs => "World"
+
+globals.set_globals({
+  Hello = "__world__",
+  Okkkk = "Then"
+})
+
+print(_G.Hello) -- Outputs => "__world__"
+print(_G.Okkkk) -- Outputs => "then"
+```
+
+#### `arweave.globals.set_globals_if_not_exists()`
+
+Sets globals using a key-value pair object. This only sets globals that do not exist yet.
+
+```lua
+local globals = require "arweave.globals"
+
+_G.Hello = "World" -- This will NOT be overwritten
+print(_G.Hello) -- Outputs => "World"
+
+globals.set_globals({
+  Hello = "__world__",
+  Okkkk = "Then"
+})
+
+print(_G.Hello) -- Outputs => "World"
+print(_G.Okkkk) -- Outputs => "then"
+```
+
 ### `arweave.hash`
 
 #### `arweave.hash.generateId(len)`
