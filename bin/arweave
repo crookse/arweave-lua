@@ -4,6 +4,8 @@
 local cli = require "cliargs"
 local mod = require "arweave"
 
+mod.command = "arweave"
+
 -- Called when the flag -v or --version is set.
 -- 
 local function print_version()
@@ -32,7 +34,7 @@ local function checkArgs(args, err)
   end
 end
 
-cli:set_name("arweave")
+cli:set_name(mod.command)
 
 cli:splat('COMMAND', 'One of the commands')
 
@@ -105,4 +107,6 @@ if subcommand == "test" then
   os.exit(0)
 end
 
+print("\n" .. mod.command .. " " .. mod.version .. "\n")
 cli:print_help()
+
