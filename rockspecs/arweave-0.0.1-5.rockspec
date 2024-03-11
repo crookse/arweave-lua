@@ -1,6 +1,6 @@
 package = "arweave"
 
-version = "0.0.1-4"
+version = "0.0.1-5"
 
 source = {
    url = "git+https://github.com/crookse/arweave-lua"
