@@ -1,0 +1,103 @@
+name: Publish Release
+
+on:
+  # This workflow does not need a workflow_dispatch trigger. If this workflow
+  # fails, then re-run it.
+  release:
+    types: [published]
+
+jobs:
+
+  ##############################################################################
+  # RELEASE VERSION CHECK
+  ##############################################################################
+  #
+  # Sometimes we forget to update the `version` field in the `package.json`
+  # file. It is intentional to manually update that file. As a result, we need
+  # this workflow to check that we updated the version before releasing.
+  #
+  
+  check_release_version:
+    name: Check version in package.json
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.CI_USER_PAT }}
+
+      - name: (placeholder) Perform version check
+        run: |
+          echo "Placeholder"
+
+  ##############################################################################
+  # CODE QUALITY
+  ##############################################################################
+
+  check_file_headers:
+    name: Check file headers
+    needs: [check_release_version]
+    
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: (placeholder) Check file headers
+        run: |
+          echo "Placeholder"
+
+  lint_code:
+    name: Check for lint
+    needs: [check_release_version]
+    
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: (placeholder) Run luacheck
+        run: |
+          echo "Placeholder"
+
+  code_formatting:
+    name: Check code formatting
+    needs: [check_release_version]
+    
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: (placeholder) Run LuaFormatter check
+        run: |
+          echo "Placeholder"
+
+  ##############################################################################
+  # PUBLISH TO REGISTRY
+  ##############################################################################
+
+  publish:
+    name: Publish to registry (https://luarocks.org)
+    needs: [check_release_version, check_file_headers, lint_code, code_formatting]
+    if: startsWith(github.event.release.tag_name, 'v3.')
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Lua
+        uses: leafo/gh-actions-lua@v9
+
+      - name: Install Luarocks
+        uses: leafo/gh-actions-luarocks@v4
+
+      # Example command expanded:
+      #
+      #   luarocks upload arweave-0.0.1-5.rockspec --api-key=API_KEY
+      #
+      - name: Publish
+        run: |
+          luarocks upload arweave-${{ github.event.release.tag_name }}.rockspec --api-key=${{ secrets.LUAROCKS_UPLOAD_API_KEY }}
