@@ -61,6 +61,22 @@ __Things to Note__
 
 ## Modules
 
+### `arweave`
+
+#### `arweave.version`
+
+Hold this package's version value.
+
+```lua
+local arweave = require "arweave"
+
+
+--
+-- Get this package's version
+--
+print(arweave.version) -- Example output => 0.0.1-6
+```
+
 ### `arweave.hash`
 
 #### `arweave.hash.generateId(len)`
@@ -84,6 +100,48 @@ print(value) -- Example output => t_o8ipoYVkk5z9B6Fn8EQtnMOvAvXh-FQ8WCP-7XZNn
 --
 local value = hash.generateId(20) -- 20 is passed in to tell it "Make the length 20"
 print(value) -- Example output => m-it0avrR-xdGOTCsnac
+```
+
+### `arweave.testing`
+
+#### `arweave.testing.utils.generateAddress()`
+
+Generate a valid Arweave address.
+
+```lua
+local testing = require "arweave.testing"
+
+
+--
+-- Generate an Arweave address for testing
+--
+local value = testing.utils.generateAddress()
+print(value)  -- Example output => KBQYPxkK81wdX7gO9UZgFeOSW0zFvyyLcgyK34pIbc0
+```
+
+### `arweave.transactions`
+
+#### `arweave.transactions.tags.tag_value()`
+
+Get the value of a given tag name.
+
+```lua
+local testing = require "arweave.testing"
+
+
+--
+-- Get the value of a given tag name
+--
+local value = testing.utils.generateAddress(
+  -- Pass in the tag name to search for
+  "My-Tag",
+  -- Pass in the tags to search for "name = My-Tag"
+  {
+    name = "My-Tag",
+    value = "some-value",
+  }
+)
+print(value)  -- Example output => "some-value"
 ```
 
 ## Tutorials
