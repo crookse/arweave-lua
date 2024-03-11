@@ -69,9 +69,9 @@ if subcommand == "fmt" then
   end
 
   local configs = {
-    "--break-after-functioncall-lp",
+    -- "--break-after-functioncall-lp",
     "--break-after-table-lb",
-    "--break-before-functioncall-rp",
+    -- "--break-before-functioncall-rp",
     "--break-before-table-rb",
     "--chop-down-kv-table",
     "--chop-down-table",
