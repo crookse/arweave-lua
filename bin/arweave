@@ -100,7 +100,7 @@ end
 if subcommand == "test" then
   require "busted.runner"({
     standalone = false,
-    output = "src.testing.output_handlers.marton"
+    output = "arweave.testing.output_handlers.marton"
   })
   os.exit(0)
 end
