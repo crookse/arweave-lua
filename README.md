@@ -61,6 +61,74 @@ __Things to Note__
 
 ## Tutorials
 
+### Creating Type Assertions
+
+#### Example Token Type Assertions
+
+The below example shows how to create type assertions for a token. The token will have the following rules:
+
+- It must be a number
+- It must be an integer
+- It must be greater than 0
+
+1. Create your `token.lua` file.
+
+    ```lua
+    -- File: token.lua
+
+    local Type = require "arweave.types.type"
+
+
+
+    -- Create the assertion rules for the token
+    local TokenQuantity = Type
+      :number("Invalid quantity (must be number)")
+      :integer("Invalid quantity (must be integer)")
+      :greater_than(0, "Invalid quantity (must be > 0)")
+
+
+
+    -- Test the `greater_than` assertion
+    local _, err = pcall(function()
+      TokenQuantity:assert(0)
+    end)
+
+    print(err) -- Prints => Invalid quantity (must be > 0)
+
+
+
+    -- Test the `number` assertion
+    local _, err = pcall(function()
+      TokenQuantity:assert("0")
+    end)
+
+    print(err) -- Prints => Invalid quantity (must be number)
+
+
+
+    -- Test the `integer` assertion
+    local _, err = pcall(function()
+      TokenQuantity:assert(1.2)
+    end)
+
+    print(err) -- Prints => Invalid quantity (must be integer)
+    ```
+
+1. Run your `token.lua` file.
+
+    ```
+    lua token.lua
+    ```
+
+    You should see output similar to the following:
+
+    ```
+    /path/to/arweave/types/type.lua:350: [Type table: 0x15b60e4e0] Invalid quantity (must be > 0)
+    /path/to/arweave/types/type.lua:350: [Type table: 0x15b60e4e0] Invalid quantity (must be number)
+    /path/to/arweave/types/type.lua:350: [Type table: 0x15b60e4e0] Invalid quantity (must be integer)
+    ```
+
+
 ### Formatting Code
 
 1. Run the code fomatter against a file.
