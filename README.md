@@ -142,6 +142,44 @@ local value = hash.generateId(20) -- 20 is passed in to tell it "Make the length
 print(value) -- Example output => m-it0avrR-xdGOTCsnac
 ```
 
+### `arweave.logs`
+
+#### `arweave.logs.logger`
+
+Create a logger with a given log level -- only logging messages at or below the given log level.
+
+Allowed log levels (in descending order) are:
+
+- `debug`
+- `info`
+- `warn`
+- `error`
+- `fatal`
+
+```lua
+local Logger = require "arweave.logs.logger"
+
+--
+-- Create a logger
+--
+-- Define the logger's level by providing the `level` option. If a level is not
+-- provided, then "error" will be used as a default.
+--
+local logger = Logger.init({
+  -- level = "debug", -- Uncomment this if you want "debug" logging and below
+  -- level = "info",  -- Uncomment this if you want "info" logging and below
+  -- level = "warn",  -- Uncomment this if you want "warn" logging and below
+  -- level = "error", -- Uncomment this if you want "error" logging and below
+  -- level = "fatal", -- Uncomment this if you want "fatal" logging and below
+})
+
+logger.debug("log level 5") -- Only gets logged if logger level is: "debug"
+logger.info("log level 4")  -- Only gets logged if logger level is: "debug" | "info"
+logger.warn("log level 3")  -- Only gets logged if logger level is: "debug" | "info" | "warn"
+logger.error("log level 2") -- Only gets logged if logger level is: "debug" | "info" | "warn" | "error"
+logger.fatal("log level 1") -- Only gets logged if logger level is: "debug" | "info" | "warn" | "error" | "fatal"
+```
+
 ### `arweave.testing`
 
 #### `arweave.testing.utils.generateAddress()`
