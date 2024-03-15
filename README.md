@@ -231,6 +231,57 @@ local value = testing.utils.generateAddress(
 print(value)  -- Example output => "some-value"
 ```
 
+### `arweave.types.validator`
+
+Initialize a validator that takes in an object and ensures its fields are of the expected type.
+
+```lua
+-- The `Validator` module is dependent on being provided an object with an
+-- `:assert()` method. The built-in `Type` module provides implements an
+-- `:assert()` method, so we can use it here.
+local Type = require "arweave.types.type"
+
+-- Get the validator
+local Validator = require "src.types.validator"
+
+-- Initialize a validator that can validate an object's Quantity and Sender
+-- fields
+local validator = Validator.init({
+  types = {
+    Quantity = Type:number("Quantity should be a number"),
+    Sender = Type:string("Sender should be a string"),
+    Recipient = Type:string("Recipient should be a string"),
+  }
+})
+
+-- Define an object to pass to the validator
+local obj = {
+  Quantity = 190,
+  Sender = "sender-1447",
+  Recipient = "recipient-1667",
+}
+
+-- Pass the object to the validator (first argument) and tell the validator to
+-- validate the object's Quantity and Sender fields (second argument). The
+-- Recipient field is left out intentionally to exercise the code further down
+-- below.
+local validated = validator.validate_types(
+  obj,
+  {
+    "Quantity",
+    "Sender",
+  }
+)
+
+-- If the valiator does not error out, then it returns the values of the fields
+-- you told it to validate. In this case, the Quantity and Sender fields were
+-- returned. Since the Recipient field was not included above, the Recipient
+-- field was not returned (outputs `nil` below).
+print(validated.Quantity)  -- Outputs => 190
+print(validated.Sender)    -- Outputs => "sender-1447"
+print(validated.Recipient) -- Outputs => nil
+```
+
 ## Tutorials
 
 ### Creating Type Assertions
