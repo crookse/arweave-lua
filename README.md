@@ -242,7 +242,7 @@ Initialize a validator that takes in an object and ensures its fields are of the
 local Type = require "arweave.types.type"
 
 -- Get the validator
-local Validator = require "src.types.validator"
+local Validator = require "arweave.types.validator"
 
 -- Initialize a validator that can validate an object's Quantity and Sender
 -- fields
