@@ -2,6 +2,15 @@
 
 Slick Lua tooling for building in the Arweave ecosystem
 
+## Notes From the Authors
+
+- This module is usable, but considered unstable (it is currently at version 0.x)
+- This module will be considered stable on release version 1.0.0 with a date TBD
+- You can expect breaking changes to occur between each version 0.x release
+  - Releases introducing breaking changes will have a summary of the breaking changes in their release notes
+  - Release notes will include short guides to help you migrate and fix your code
+- If you find issues with this module, please create an issue or submit a pull request (all help is appreciated!)
+
 ## Installation
 
 The command below assumes you have the [LuaRocks](https://luarocks.org/) CLI installed.
