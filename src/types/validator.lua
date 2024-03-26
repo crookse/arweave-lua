@@ -14,6 +14,19 @@
 ---```
 local mod = {}
 
+-- Given a list it returns its keys
+---@param list table
+---@return table
+function tableKeys(list)
+  local keys = {}
+
+  for k in pairs(list) do
+    table.insert(keys, k)
+  end
+
+  return keys
+end
+
 ---@alias AssertionInterface { assert: fun(...) }
 
 ---Initialize a validator.
@@ -55,7 +68,7 @@ function mod:init(options)
     local validatedVars = {}
 
     if keys_to_validate == nil then
-      keys_to_validate = table.keys(options.types)
+      keys_to_validate = tableKeys(options.types)
     end
 
     for _index, key in pairs(keys_to_validate) do
