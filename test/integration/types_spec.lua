@@ -23,7 +23,7 @@ describe("types", function()
 
       -- Given we have a validator that validates an object's Quantity field and
       -- expects it to be a number
-      local validator = Validator.init({
+      local validator = Validator:init({
         types = {
           Quantity = Type:number("should be a number")
         }
@@ -35,7 +35,7 @@ describe("types", function()
       }
 
       -- When validating the given obj and its Quantity field
-      local validated = validator.validate_types(
+      local validated = validator:validate_types(
         obj,
         {
           "Quantity"
@@ -56,7 +56,7 @@ describe("types", function()
 
       -- Given we have a validator that validates an object's Quantity and
       -- Sender fields
-      local validator = Validator.init({
+      local validator = Validator:init({
         types = {
           Quantity = Type:number("should be a number"),
           Sender = Type:string("should be a string"),
@@ -70,7 +70,7 @@ describe("types", function()
       }
 
       -- When validating the given obj and its Quantity and Sender fields
-      local validated = validator.validate_types(
+      local validated = validator:validate_types(
         obj,
         {
           "Quantity",
@@ -90,7 +90,7 @@ describe("types", function()
 
       -- Given we have a validator that validates an object's Quantity and
       -- Sender fields
-      local validator = Validator.init({
+      local validator = Validator:init({
         types = {
           Quantity = Type:number("Quantity should be a number"),
           Sender = Type:string("should be a string"),
@@ -106,7 +106,7 @@ describe("types", function()
       -- When validating the given obj and its Quantity and Sender fields
       local validated = {}
       local _, err = pcall(function()
-        validated = validator.validate_types(
+        validated = validator:validate_types(
           obj,
           {
             "Quantity",
@@ -134,7 +134,7 @@ describe("types", function()
 
       -- Given we have a validator that validates an object's Quantity and
       -- Sender fields
-      local validator = Validator.init({
+      local validator = Validator:init({
         types = {
           Quantity = Type:number("Quantity should be a number"),
           Sender = Type:string("Sender should be a string"),
@@ -150,7 +150,7 @@ describe("types", function()
       -- When validating the given obj and its Quantity and Sender fields
       local validated = {}
       local _, err = pcall(function()
-        validated = validator.validate_types(
+        validated = validator:validate_types(
           obj,
           {
             "Quantity",

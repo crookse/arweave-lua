@@ -237,8 +237,8 @@ Initialize a validator that takes in an object and ensures its fields are of the
 
 ```lua
 -- The `Validator` module is dependent on being provided an object with an
--- `:assert()` method. The built-in `Type` module provides implements an
--- `:assert()` method, so we can use it here.
+-- `:assert()` method. The built-in `Type` module implements an `:assert()`
+-- `method, so we can use it here.
 local Type = require "arweave.types.type"
 
 -- Get the validator
@@ -246,7 +246,7 @@ local Validator = require "arweave.types.validator"
 
 -- Initialize a validator that can validate an object's Quantity and Sender
 -- fields
-local validator = Validator.init({
+local validator = Validator:init({
   types = {
     Quantity = Type:number("Quantity should be a number"),
     Sender = Type:string("Sender should be a string"),
@@ -265,7 +265,7 @@ local obj = {
 -- validate the object's Quantity and Sender fields (second argument). The
 -- Recipient field is left out intentionally to exercise the code further down
 -- below.
-local validated = validator.validate_types(
+local validated = validator:validate_types(
   obj,
   {
     "Quantity",
