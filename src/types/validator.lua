@@ -17,7 +17,7 @@ local mod = {}
 -- Given a list it returns its keys
 ---@param list table
 ---@return table
-function tableKeys(list)
+local function tableKeys(list)
   local keys = {}
 
   for k in pairs(list) do
