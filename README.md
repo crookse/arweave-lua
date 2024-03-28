@@ -213,19 +213,21 @@ print(value)  -- Example output => KBQYPxkK81wdX7gO9UZgFeOSW0zFvyyLcgyK34pIbc0
 Get the value of a given tag name.
 
 ```lua
-local testing = require "arweave.testing"
+local transactions = require "arweave.transactions"
 
 
 --
 -- Get the value of a given tag name
 --
-local value = testing.utils.generateAddress(
+local value = transactions.tags.tag_value(
   -- Pass in the tag name to search for
   "My-Tag",
   -- Pass in the tags to search for "name = My-Tag"
   {
-    name = "My-Tag",
-    value = "some-value",
+    {
+      name = "My-Tag",
+      value = "some-value",
+    }
   }
 )
 print(value)  -- Example output => "some-value"
